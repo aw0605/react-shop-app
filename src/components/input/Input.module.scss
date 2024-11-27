@@ -19,9 +19,14 @@
     padding: 0.875rem;
     background: var(--color-white);
     border: 1px solid var(--border-gray);
+    outline: none;
 
     &::placeholder {
       color: var(--dark-gray);
+    }
+
+    &:focus {
+      border: 2px solid var(--light-blue);
     }
 
     &:read-only {
