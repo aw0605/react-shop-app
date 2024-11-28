@@ -74,11 +74,20 @@ const LoginClient = () => {
             </div>
 
             <div className={styles.buttonGroup}>
-              {/* button */}
-              Button
+              <Button type="submit" label="로그인" width="100%" />
               <Divider />
-              Button
-              <div>{/* button */}</div>
+              <Button
+                label="회원가입"
+                width="100%"
+                secondary
+                onClick={() => {
+                  router.push("/register");
+                }}
+              />
+              <Divider />
+              <div>
+                <Button label="구글 로그인" onClick={signInWithGoogle} />
+              </div>
             </div>
           </form>
         </div>
