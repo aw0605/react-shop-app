@@ -22,7 +22,7 @@ const Button = ({
   };
 
   return (
-    <button type={type} className={composeClasses} style={style}>
+    <button type={type} className={composeClasses} style={style} {...restProps}>
       {label}
     </button>
   );
