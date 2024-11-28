@@ -1,5 +1,5 @@
-import styles from "./Tooltip.module.scss";
 import classNames from "classnames";
+import styles from "./Tooltip.module.scss";
 
 const Tooltip = ({
   top = 0,

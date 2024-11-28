@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./AutoSignInCheckBox.module.scss";
 import CheckBox from "../checkbox/CheckBox";
 import Tooltip from "../tooltip/Tooltip";
