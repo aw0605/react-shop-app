@@ -8,6 +8,7 @@ import LogoPath from "@/assets/colorful.svg";
 import styles from "./Auth.module.scss";
 import Loader from "@/components/loader/Loader";
 import Input from "@/components/input/Input";
+import AutoSignInCheckBox from "@/components/autoSignInCheckbox/AutoSignInCheckBox";
 
 const LoginClient = () => {
   const [email, setEmail] = useState("");
@@ -64,6 +65,10 @@ const LoginClient = () => {
             />
             <div className={styles.group}>
               {/* 자동 로그인, 비밀번호 수정 */}
+              <AutoSignInCheckBox
+                checked={isAutoLogin}
+                onChange={(e) => setIsAutoLogin(e.target.checked)}
+              />
             </div>
 
             <div className={styles.buttonGroup}>
