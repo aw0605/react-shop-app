@@ -9,6 +9,8 @@ import styles from "./Auth.module.scss";
 import Loader from "@/components/loader/Loader";
 import Input from "@/components/input/Input";
 import AutoSignInCheckBox from "@/components/autoSignInCheckbox/AutoSignInCheckBox";
+import Button from "./../../../components/button/Button";
+import Divider from "@/components/divider/Divider";
 
 const LoginClient = () => {
   const [email, setEmail] = useState("");
@@ -73,6 +75,9 @@ const LoginClient = () => {
 
             <div className={styles.buttonGroup}>
               {/* button */}
+              Button
+              <Divider />
+              Button
               <div>{/* button */}</div>
             </div>
           </form>
