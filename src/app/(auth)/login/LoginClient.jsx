@@ -3,14 +3,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import LogoPath from "@/assets/colorful.svg";
-
-import styles from "./Auth.module.scss";
 import Loader from "@/components/loader/Loader";
 import Input from "@/components/input/Input";
 import AutoSignInCheckBox from "@/components/autoSignInCheckbox/AutoSignInCheckBox";
-import Button from "./../../../components/button/Button";
+import Button from "@/components/button/Button";
 import Divider from "@/components/divider/Divider";
+
+import styles from "./Auth.module.scss";
 
 const LoginClient = () => {
   const [email, setEmail] = useState("");
@@ -41,7 +42,6 @@ const LoginClient = () => {
           </h1>
 
           <form className={styles.form} onSubmit={loginUser}>
-            {/* input */}
             <Input
               email
               id="email"
@@ -66,16 +66,33 @@ const LoginClient = () => {
               placeholder="비밀번호"
             />
             <div className={styles.group}>
-              {/* 자동 로그인, 비밀번호 수정 */}
               <AutoSignInCheckBox
                 checked={isAutoLogin}
                 onChange={(e) => setIsAutoLogin(e.target.checked)}
               />
+
+              <Link href={"/reset"} className={styles.findLink}>
+                비밀번호 수정하기
+                <svg
+                  width="11"
+                  height="18"
+                  viewBox="0 0 11 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={styles.findLinkArrow}
+                >
+                  <path
+                    d="M1.5 1L9.5 9L1.5 17"
+                    stroke="#0074E9"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </Link>
             </div>
 
             <div className={styles.buttonGroup}>
               <Button type="submit" label="로그인" width="100%" />
-              <Divider />
+              <Divider space={15} />
               <Button
                 label="회원가입"
                 width="100%"
@@ -84,7 +101,7 @@ const LoginClient = () => {
                   router.push("/register");
                 }}
               />
-              <Divider />
+              <Divider space={15} />
               <div>
                 <Button label="구글 로그인" onClick={signInWithGoogle} />
               </div>
