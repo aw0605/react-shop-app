@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import Image from "next/image";
 import Link from "next/link";
 import LogoPath from "@/assets/colorful.svg";

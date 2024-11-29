@@ -1,3 +1,6 @@
+import { toast } from "react-toastify";
+
 export default function Home() {
-  return <div>home</div>;
+  const notify = () => toast("toastify test!");
+  return <div>Home</div>;
 }
