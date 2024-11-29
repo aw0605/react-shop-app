@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase/firebase";
 import Image from "next/image";
 import LogoPath from "@/assets/colorful.svg";
 import Loader from "@/components/loader/Loader";
@@ -19,13 +22,27 @@ const LoginClient = () => {
 
   const router = useRouter();
 
-  const redirectUser = () => {
-    router.push("/");
-  };
-
   const registerUser = (e) => {
     e.preventDefault();
+    if (password !== cPassword) {
+      return toast.error("비밀번호가 일치하지 않습니다.");
+    }
+
     setIsLoading(true);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("user", user);
+        setIsLoading(false);
+
+        toast.success("회원가입 성공!");
+        router.push("/login");
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        toast.error(e.message);
+      });
   };
 
   const signInWithGoogle = () => {};
