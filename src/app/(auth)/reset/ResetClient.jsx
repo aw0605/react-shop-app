@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "@/firebase/firebase";
+import { toast } from "react-toastify";
 import Loader from "@/components/loader/Loader";
 import Heading from "@/components/heading/Heading";
 import Input from "@/components/input/Input";
@@ -18,7 +21,18 @@ const ResetClient = () => {
 
   const resetPassword = (e) => {
     e.preventDefatult();
+
     setIsLoading(true);
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setIsLoading(false);
+        toast.success("비밀번호 업데이트를 위해 이메일을 체크해주세요.");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message);
+      });
   };
 
   return (
