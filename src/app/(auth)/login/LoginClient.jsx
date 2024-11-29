@@ -3,6 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "@/firebase/firebase";
 import Image from "next/image";
 import Link from "next/link";
 import LogoPath from "@/assets/colorful.svg";
@@ -28,10 +34,33 @@ const LoginClient = () => {
 
   const loginUser = (e) => {
     e.preventDefault();
+
     setIsLoading(true);
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        setIsLoading(false);
+        toast.success("로그인에 성공했습니다.");
+        redirectUser();
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        toast.error(e.message);
+      });
   };
 
-  const signInWithGoogle = () => {};
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then(() => {
+        toast.success("구글 로그인에 성공했습니다.");
+        redirectUser();
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
+  };
 
   return (
     <>
