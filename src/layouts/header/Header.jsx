@@ -10,6 +10,8 @@ import InnerHeader from "../innerHeader/InnerHeader";
 
 import styles from "./Header.module.scss";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slice/authSlice";
 
 const Header = () => {
   const [displayName, setDisplayName] = useState("");
@@ -17,6 +19,8 @@ const Header = () => {
   const pathname = usePathname();
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -28,11 +32,19 @@ const Header = () => {
         } else {
           setDisplayName(user.displayName);
         }
+        dispatch(
+          SET_ACTIVE_USER({
+            email: user.email,
+            userName: user.displayName ? user.displayName : displayName,
+            userID: user.uid,
+          })
+        );
       } else {
         setDisplayName("");
+        dispatch(REMOVE_ACTIVE_USER());
       }
     });
-  }, []);
+  }, [dispatch, displayName]);
 
   const logoutUser = () => {
     signOut(auth)

@@ -45,8 +45,6 @@ const LoginClient = () => {
       });
   };
 
-  const signInWithGoogle = () => {};
-
   return (
     <>
       {isLoading && <Loader />}
