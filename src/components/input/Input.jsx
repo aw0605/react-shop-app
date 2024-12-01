@@ -19,6 +19,7 @@ const Input = ({
   readOnly,
   disabled,
   onChange,
+  margin,
   ...restProps
 }) => {
   const [inputValue, setInputValue] = useState(value ? value : "");
@@ -68,6 +69,7 @@ const Input = ({
           placeholder={placeholder}
           readOnly={readOnly}
           disabled={disabled}
+          style={{ margin: margin }}
           {...restProps}
         />
 
