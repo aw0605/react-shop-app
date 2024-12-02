@@ -20,6 +20,7 @@ const useFetchCollection = (collectionName) => {
         const allData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
+          createdAt: doc.data().createdAt.toMillis(),
         }));
         setData(allData);
         setIsLoading(false);

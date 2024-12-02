@@ -35,8 +35,6 @@ const Product = () => {
 
   const products = useSelector(selectProducts);
 
-  console.log(data);
-
   return (
     <section className={styles.product}>
       <aside className={styles.filter}>
