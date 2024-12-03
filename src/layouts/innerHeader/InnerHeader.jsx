@@ -122,7 +122,7 @@ const InnerHeader = () => {
           </li>
           <li>
             <Link href="/">
-              2022년 설날
+              2025년 설날
               <Image src={newIcon} alt="new" className={styles.badgeNew} />
             </Link>
           </li>

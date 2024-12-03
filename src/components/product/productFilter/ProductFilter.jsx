@@ -21,12 +21,11 @@ import styles from "./ProductFilter.module.scss";
 const ProductFilter = () => {
   const [category, setCategory] = useState("All");
   const [brand, setBrand] = useState("All");
+  const [price, setPrice] = useState(2000000);
 
   const products = useSelector(selectProducts);
   const minPrice = useSelector(selectMinPrice);
   const maxPrice = useSelector(selectMaxPrice);
-
-  const [price, setPrice] = useState(maxPrice);
 
   const dispatch = useDispatch();
 
