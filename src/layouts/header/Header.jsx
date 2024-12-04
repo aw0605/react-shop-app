@@ -1,17 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slice/authSlice";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
 import { toast } from "react-toastify";
 import InnerHeader from "../innerHeader/InnerHeader";
 
 import styles from "./Header.module.scss";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slice/authSlice";
 
 const Header = () => {
   const [displayName, setDisplayName] = useState("");
@@ -70,7 +69,7 @@ const Header = () => {
       <div className={styles.loginBar}>
         <ul className={styles.list}>
           <li className={styles.item}>
-            <Link href={"/login"}>로그인</Link>
+            {displayName ? null : <Link href={"/login"}>로그인</Link>}
           </li>
           <>
             <li className={styles.item}>
@@ -81,9 +80,11 @@ const Header = () => {
               <Link href={"/order-history"}>주문 목록</Link>
             </li>
             <li className={styles.item}>
-              <Link href={"/"} onClick={logoutUser}>
-                로그아웃
-              </Link>
+              {displayName ? (
+                <Link href={"/"} onClick={logoutUser}>
+                  로그아웃
+                </Link>
+              ) : null}
             </li>
 
             <li className={styles.item}>
