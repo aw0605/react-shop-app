@@ -3,8 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slice/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  REMOVE_ACTIVE_USER,
+  selectIsLoggedIn,
+  SET_ACTIVE_USER,
+} from "@/redux/slice/authSlice";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
 import { toast } from "react-toastify";
@@ -20,6 +24,8 @@ const Header = () => {
   const router = useRouter();
 
   const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -69,7 +75,7 @@ const Header = () => {
       <div className={styles.loginBar}>
         <ul className={styles.list}>
           <li className={styles.item}>
-            {displayName ? null : <Link href={"/login"}>로그인</Link>}
+            {isLoggedIn ? null : <Link href={"/login"}>로그인</Link>}
           </li>
           <>
             <li className={styles.item}>
@@ -80,7 +86,7 @@ const Header = () => {
               <Link href={"/order-history"}>주문 목록</Link>
             </li>
             <li className={styles.item}>
-              {displayName ? (
+              {isLoggedIn ? (
                 <Link href={"/"} onClick={logoutUser}>
                   로그아웃
                 </Link>
