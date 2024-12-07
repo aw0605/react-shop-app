@@ -7,6 +7,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import { FILTER_BY_SEARCH } from "@/redux/slice/filterSlice";
 import { selectProducts } from "@/redux/slice/productSlice";
+import { selectCartTotalQuantity } from "@/redux/slice/cartSlice";
 import logo from "@/assets/colorful.svg";
 import freshIcon from "@/assets/icon-fresh.svg";
 import rocketIcon from "@/assets/icon-rocket.svg";
@@ -22,6 +23,8 @@ const InnerHeader = () => {
   const router = useRouter();
 
   const products = useSelector(selectProducts);
+
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
 
   useEffect(() => {
     dispatch(FILTER_BY_SEARCH({ products, search }));
@@ -104,7 +107,7 @@ const InnerHeader = () => {
             장바구니
           </button>
           <strong className={styles.cartProductCount}>
-            {/* 장바구니 상품 개수 */}0
+            {cartTotalQuantity}
           </strong>
         </div>
       </div>
