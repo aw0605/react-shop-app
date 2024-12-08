@@ -23,6 +23,10 @@
       text-align: left;
       padding: 8px;
 
+      img {
+        object-fit: cover;
+      }
+
       &.icons {
         > * {
           margin-right: 5px;

@@ -17,23 +17,6 @@ import listCashIcon from "@/assets/list-cash-icon.png";
 
 import styles from "./ProductDetails.module.scss";
 
-// const mockReviews = [
-//   {
-//     key: "1",
-//     rate: 3,
-//     review: "보통이에요.",
-//     reviewDate: "Thu December 05 2024",
-//     userName: "홍길동",
-//   },
-//   {
-//     key: "2",
-//     rate: 5,
-//     review: "좋아요.",
-//     reviewDate: "Wed December 04 2024",
-//     userName: "김철수",
-//   },
-// ];
-
 const ProductDetailsClient = () => {
   const [count, setCount] = useState(1);
 
@@ -47,6 +30,14 @@ const ProductDetailsClient = () => {
     "==",
     id,
   ]);
+
+  let productRating = 0;
+
+  reviews.map((doc) => {
+    productRating = productRating + doc.data().rate;
+  });
+
+  const rating = productRating / reviews.length;
 
   const addToCart = () => {
     dispatch(ADD_TO_CART({ ...product, quantity: count }));
@@ -81,13 +72,9 @@ const ProductDetailsClient = () => {
                 <div className={styles.rating}>
                   <Rating
                     size={17}
-                    initialValue={0}
-                    // initialValue={Number.isNaN(rating) ? 0 : rating}
+                    initialValue={Number.isNaN(rating) ? 0 : rating}
                   />
-                  <span className={styles.count}>
-                    {/* {reviews.length} */}
-                    0개 상품평
-                  </span>
+                  <span className={styles.count}>({reviews.length})</span>
                 </div>
               </div>
 
@@ -171,10 +158,11 @@ const ProductDetailsClient = () => {
             </p>
           ) : (
             <>
-              {reviews.map((item) => {
+              {reviews.map((doc, idx) => {
+                const item = doc.data();
                 return (
                   <ProductReviewItem
-                    key={item.id}
+                    key={idx}
                     rate={item.rate}
                     review={item.review}
                     reviewDate={item.reviewDate}

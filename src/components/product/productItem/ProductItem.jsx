@@ -10,15 +10,15 @@ import rocketBadgeIcon from "@/assets/badge-rocket.svg";
 import styles from "./ProductItem.module.scss";
 
 const ProductItem = ({ id, name, price, imageURL }) => {
-  // const { documents } = useFetchDocuments("reviews", ["productID", "==", id]);
+  const { documents } = useFetchDocuments("reviews", ["productID", "==", id]);
 
-  // let productRating = 0;
+  let productRating = 0;
 
-  // documents.map((doc) => {
-  //   productRating = productRating + doc.rate;
-  // });
+  documents.map((doc) => {
+    productRating = productRating + doc.data().rate;
+  });
 
-  // const rating = productRating / documents.length;
+  const rating = productRating / documents.length;
 
   const shortenText = (text, n) => {
     if (text.length > n) {
@@ -46,13 +46,9 @@ const ProductItem = ({ id, name, price, imageURL }) => {
             <Rating
               size={17}
               readonly
-              // initialValue={Number.isNaN(rating) ? 0 : rating}
-              initialValue={0}
+              initialValue={Number.isNaN(rating) ? 0 : rating}
             />
-            <span className={styles.ratingCount}>
-              {/* ({documents.length}) */}
-              (0)
-            </span>
+            <span className={styles.ratingCount}>({documents.length})</span>
           </div>
         </div>
       </div>
