@@ -1,17 +1,7 @@
-import React from "react";
+import OrderDetailsClient from "./OrderDetailsClient";
 
-const OderDetails = ({ params, searchParams }) => {
-  const { hello } = searchParams;
-  const { id } = params;
-
-  console.log(id);
-  return (
-    <div>
-      {id}
-      <br />
-      {hello}
-    </div>
-  );
+const OderDetails = () => {
+  return <OrderDetailsClient />;
 };
 
 export default OderDetails;
