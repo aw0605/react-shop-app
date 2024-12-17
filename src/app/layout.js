@@ -5,6 +5,7 @@ import ToastProvider from "@/components/toastProvider/ToastProvider";
 import Footer from "@/layouts/footer/Footer";
 import Header from "@/layouts/header/Header";
 import Providers from "@/redux/provider";
+import NavbarProvider from "@/layouts/navbar/NavbarProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <ToastProvider />
           <Header />
-          {children}
+          <NavbarProvider>{children}</NavbarProvider>
           <Footer />
         </Providers>
       </body>
