@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Notiflix from "notiflix";
+import { toast } from "react-toastify";
 import useFetchCollection from "@/hooks/useFetchCollection";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProducts, STORE_PRODUCTS } from "@/redux/slice/productSlice";
@@ -10,14 +12,18 @@ import {
   FILTER_BY_SEARCH,
   selectFilteredProducts,
 } from "@/redux/slice/filterSlice";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
+import { deleteObject, ref } from "firebase/storage";
 import priceFormat from "@/utils/priceFormat";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Loader from "@/components/loader/Loader";
 import Heading from "@/components/heading/Heading";
+import Search from "@/components/search/Search";
 import Pagination from "@/components/pagination/Pagination";
 
 import styles from "./AllProducts.module.scss";
-import Search from "@/components/search/Search";
 
 const AllProductsClient = () => {
   const [search, setSearch] = useState("");
@@ -48,6 +54,40 @@ const AllProductsClient = () => {
   useEffect(() => {
     dispatch(FILTER_BY_SEARCH({ products, search }));
   }, [dispatch, products, search]);
+
+  const confirmDelete = (id, imageURL) => {
+    Notiflix.Confirm.show(
+      "상품 삭제하기",
+      "해당 상품을 삭제합니다.",
+      "삭제",
+      "취소",
+      function okCb() {
+        deleteProduct(id, imageURL);
+      },
+      function cancelCb() {
+        console.log("삭제가 취소되었습니다.");
+      },
+      {
+        width: "320px",
+        borderRadius: "3px",
+        titleColor: "#4385F4",
+        okButtonBackground: "#4385F4",
+        cssAnimationStyle: "zoom",
+      }
+    );
+  };
+
+  const deleteProduct = async (id, imageURL) => {
+    try {
+      await deleteDoc(doc(db, "products", id));
+
+      const storageRef = ref(storage, imageURL);
+      await deleteObject(storageRef);
+      toast.success("상품을 성공적으로 삭제했습니다.");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    }
+  };
 
   return (
     <>
