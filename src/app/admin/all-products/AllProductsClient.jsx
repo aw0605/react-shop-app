@@ -13,7 +13,7 @@ import {
   selectFilteredProducts,
 } from "@/redux/slice/filterSlice";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "@/firebase/firebase";
+import { db, storage } from "@/firebase/firebase";
 import { deleteObject, ref } from "firebase/storage";
 import priceFormat from "@/utils/priceFormat";
 import { getErrorMessage } from "@/utils/getErrorMessage";
