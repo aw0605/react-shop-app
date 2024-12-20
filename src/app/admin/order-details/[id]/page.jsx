@@ -1,7 +1,7 @@
-import React from "react";
+import OrderDetailsClient from "./OrderDetailsClient";
 
 const OrderDetails = () => {
-  return <div>OrderDetails</div>;
+  return <OrderDetailsClient />;
 };
 
 export default OrderDetails;
