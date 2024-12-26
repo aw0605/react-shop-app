@@ -1,11 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { ICartItem } from "@/types";
+import { RootState } from "../store";
 
-const initialState = {
+interface ICartState {
+  cartItems: ICartItem[];
+  cartTotalQuantity: number;
+  cartTotalAmount: number;
+  prevURL: string;
+}
+
+const initialState: ICartState = {
   cartItems:
     typeof window !== "undefined"
       ? localStorage.getItem("cartItems")
-        ? JSON.parse(localStorage.getItem("cartItems"))
+        ? JSON.parse(localStorage.getItem("cartItems")!)
         : []
       : [],
   cartTotalQuantity: 0,
@@ -38,7 +47,7 @@ const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     CALCULATE_TOTAL_QUANTITY: (state) => {
-      const array = [];
+      const array: number[] = [];
       state.cartItems.map((item) => {
         const { cartQuantity } = item;
         const quantity = cartQuantity;
@@ -53,7 +62,7 @@ const cartSlice = createSlice({
       state.cartTotalQuantity = totalQuantity;
     },
     CALCULATE_TOTAL_AMOUNT: (state) => {
-      const array = [];
+      const array: number[] = [];
 
       state.cartItems.map((item) => {
         const { price, cartQuantity } = item;
@@ -117,8 +126,10 @@ export const {
   SAVE_URL,
 } = cartSlice.actions;
 
-export const selectCartItems = (state) => state.cart.cartItems;
-export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
-export const selectCartTotalAmount = (state) => state.cart.cartTotalAmount;
+export const selectCartItems = (state: RootState) => state.cart.cartItems;
+export const selectCartTotalQuantity = (state: RootState) =>
+  state.cart.cartTotalQuantity;
+export const selectCartTotalAmount = (state: RootState) =>
+  state.cart.cartTotalAmount;
 
 export default cartSlice.reducer;

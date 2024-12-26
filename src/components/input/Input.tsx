@@ -1,8 +1,26 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import classNames from "classnames";
 import Icon from "../icon/Icon";
 
 import styles from "./Input.module.scss";
+
+interface IInputProps {
+  id: string;
+  label: string;
+  name?: string;
+  labelVisible?: boolean;
+  icon?: "letter" | "lock" | "show" | "hide";
+  email?: boolean;
+  password?: boolean;
+  placeholder?: string;
+  readonly?: boolean;
+  disabled?: boolean;
+  value?: string;
+  error?: { message: string };
+  className?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  [x: string]: any;
+}
 
 const Input = ({
   id,
@@ -21,7 +39,7 @@ const Input = ({
   onChange,
   margin,
   ...restProps
-}) => {
+}: IInputProps) => {
   const [inputValue, setInputValue] = useState(value ? value : "");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -37,7 +55,7 @@ const Input = ({
 
   const iconLabel = `비밀번호 ${isPasswordVisible ? "표시" : "감춤"}`;
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
 
     onChange(e);

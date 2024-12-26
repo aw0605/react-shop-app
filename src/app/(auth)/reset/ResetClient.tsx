@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/firebase/firebase";
@@ -19,8 +19,8 @@ const ResetClient = () => {
 
   const router = useRouter();
 
-  const resetPassword = (e) => {
-    e.preventDefatult();
+  const resetPassword = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     setIsLoading(true);
 

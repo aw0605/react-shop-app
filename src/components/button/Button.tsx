@@ -1,6 +1,16 @@
 import classNames from "classnames";
 import styles from "./Button.module.scss";
 
+interface IButtonProps {
+  label?: string;
+  type?: "submit" | "reset" | "button" | undefined;
+  secondary?: boolean;
+  bgColor?: string;
+  fgColor?: string;
+  width?: string;
+  [x: string]: any;
+}
+
 const Button = ({
   label = "button",
   type = "button",
@@ -9,7 +19,7 @@ const Button = ({
   fgColor,
   width,
   ...restProps
-}) => {
+}: IButtonProps) => {
   const composeClasses = classNames(
     styles.button,
     secondary ? styles.secondary : styles.primary

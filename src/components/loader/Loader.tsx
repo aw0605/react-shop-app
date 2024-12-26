@@ -2,7 +2,11 @@ import { RotatingLines } from "react-loader-spinner";
 
 import styles from "./Loader.module.scss";
 
-const Loader = ({ basic }) => {
+interface ILoaderProps {
+  basic?: boolean;
+}
+
+const Loader = ({ basic }: ILoaderProps) => {
   if (basic) {
     return (
       <div className={styles.basicWrapper}>

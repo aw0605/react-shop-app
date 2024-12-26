@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -22,7 +22,7 @@ const LoginClient = () => {
 
   const router = useRouter();
 
-  const registerUser = (e) => {
+  const registerUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== cPassword) {
       return toast.error("비밀번호가 일치하지 않습니다.");
