@@ -1,8 +1,14 @@
 import { BiSearch } from "react-icons/bi";
 
 import styles from "./Search.module.scss";
+import { ChangeEvent } from "react";
 
-const Search = ({ value, onChange }) => {
+interface ISearchProps {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Search = ({ value, onChange }: ISearchProps) => {
   return (
     <div className={styles.search}>
       <BiSearch size={18} className={styles.icon} />

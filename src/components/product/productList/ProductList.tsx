@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilteredProducts,
@@ -31,8 +31,9 @@ const ProductList = () => {
     indexOfLastProduct
   );
 
-  const isRadioSelected = (value) => sort === value;
-  const handleRadioClick = (e) => setSort(e.target.value);
+  const isRadioSelected = (value: string) => sort === value;
+  const handleRadioClick = (e: ChangeEvent<HTMLInputElement>) =>
+    setSort(e.target.value);
 
   return (
     <div className={styles.productList}>

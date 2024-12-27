@@ -43,7 +43,7 @@ const ProductFilter = () => {
     dispatch(FILTER_BY({ products, price, category, brand }));
   }, [dispatch, products, price, category, brand]);
 
-  const filterCategories = (category) => {
+  const filterCategories = (category: string) => {
     setCategory(category);
   };
 

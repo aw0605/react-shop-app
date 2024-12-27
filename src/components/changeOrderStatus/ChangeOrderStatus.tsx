@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { db } from "@/firebase/firebase";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
@@ -6,16 +6,22 @@ import { toast } from "react-toastify";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 import Loader from "../loader/Loader";
 import Button from "../button/Button";
+import { IOrder } from "@/types";
 
 import styles from "./ChangeOrderStatus.module.scss";
 
-const ChangeOrderStatus = ({ order, id }) => {
+interface IChangeOrderStatusProps {
+  order: IOrder;
+  id: string;
+}
+
+const ChangeOrderStatus = ({ order, id }: IChangeOrderStatusProps) => {
   const [status, setStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  const editOrder = (e, id) => {
+  const editOrder = (e: FormEvent<HTMLFormElement>, id: string) => {
     e.preventDefault();
 
     const orderData = {

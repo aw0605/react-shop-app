@@ -1,6 +1,13 @@
 import styles from "./InfoBox.module.scss";
 
-const InfoBox = ({ cardClass, title, count, icon }) => {
+interface IInfoBoxProps {
+  cardClass: string;
+  title: string;
+  count: string;
+  icon: React.JSX.Element;
+}
+
+const InfoBox = ({ cardClass, title, count, icon }: IInfoBoxProps) => {
   return (
     <div className={styles.infoBox}>
       <div className={cardClass}>

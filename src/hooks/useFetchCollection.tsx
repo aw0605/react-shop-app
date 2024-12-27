@@ -2,11 +2,18 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { db } from "@/firebase/firebase";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { toast } from "react-toastify";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
-const useFetchCollection = (collectionName) => {
-  const [data, setData] = useState([]);
+const useFetchCollection = (collectionName: string) => {
+  const [data, setData] = useState<DocumentData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getCollection = useCallback(() => {
@@ -26,7 +33,7 @@ const useFetchCollection = (collectionName) => {
       });
     } catch (e) {
       setIsLoading(false);
-      toast.error(e.message);
+      toast.error(getErrorMessage(e));
     }
   }, [collectionName]);
 

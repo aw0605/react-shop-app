@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 import styles from "./NavbarProvider.module.scss";
 
-const NavbarProvider = ({ children }) => {
+const NavbarProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
   return (
