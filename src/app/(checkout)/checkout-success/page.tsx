@@ -5,9 +5,10 @@ import Heading from "@/components/heading/Heading";
 import Button from "@/components/button/Button";
 
 import styles from "./CheckoutSuccess.module.scss";
+import { use } from "react";
 
 interface ICheckoutSuccessProps {
-  searchParams: { orderId: string };
+  searchParams: Promise<{ orderId: string }>;
 }
 interface IPayment {
   orderName: string;
@@ -20,7 +21,9 @@ interface IPayment {
 }
 
 const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
-  const url = `https://api.tosspayments.com/v1/payments/orders/${searchParams.orderId}`;
+  const url = `https://api.tosspayments.com/v1/payments/orders/${
+    (await searchParams).orderId
+  }`;
 
   const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY;
   const basicToken = Buffer.from(`${secretKey}:`, "utf-8").toString("base64");
@@ -38,8 +41,6 @@ const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
   });
 
   const { card } = payment;
-
-  console.log(payment);
 
   return (
     <section className={styles.success}>
