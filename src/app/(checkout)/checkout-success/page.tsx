@@ -7,11 +7,8 @@ import Button from "@/components/button/Button";
 import styles from "./CheckoutSuccess.module.scss";
 
 interface ICheckoutSuccessProps {
-  searchParams: {
-    orderId: string;
-  };
+  searchParams: { orderId: string };
 }
-
 interface IPayment {
   orderName: string;
   orderId: string;
@@ -34,6 +31,9 @@ const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
       "Content-Type": "application/json",
     },
   }).then((res) => {
+    if (!res.ok) {
+      throw new Error("Payment fetch failed");
+    }
     return res.json();
   });
 
