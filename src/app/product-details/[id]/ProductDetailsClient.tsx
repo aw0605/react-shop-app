@@ -24,11 +24,11 @@ const ProductDetailsClient = () => {
 
   const { id } = useParams();
 
-  const { document: product } = useFetchDocument("products", id);
+  const { document: product } = useFetchDocument("products", id as string);
   const { documents: reviews } = useFetchDocuments("reviews", [
     "productID",
     "==",
-    id,
+    id as string,
   ]);
 
   let productRating = 0;

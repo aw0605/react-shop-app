@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import useFetchDocument from "@/hooks/useFetchDocument";
 import priceFormat from "@/utils/priceFormat";
+import { ICartItem, IOrder } from "@/types";
 import Heading from "@/components/heading/Heading";
 import Loader from "@/components/loader/Loader";
 import ChangeOrderStatus from "@/components/changeOrderStatus/ChangeOrderStatus";
@@ -12,7 +13,7 @@ import styles from "./OrderDetails.module.scss";
 
 const OrderDetailsClient = () => {
   const { id } = useParams();
-  const { document: order } = useFetchDocument("orders", id);
+  const { document: order } = useFetchDocument("orders", id as string);
 
   return (
     <section className={styles.table}>
@@ -47,7 +48,7 @@ const OrderDetailsClient = () => {
               </tr>
             </thead>
             <tbody>
-              {order.cartItems.map((cartItem, index) => {
+              {order.cartItems.map((cartItem: ICartItem, index: number) => {
                 const { id, name, price, imageURL, cartQuantity } = cartItem;
                 return (
                   <tr key={id}>
@@ -71,7 +72,7 @@ const OrderDetailsClient = () => {
               })}
             </tbody>
           </table>
-          <ChangeOrderStatus order={order} id={id} />
+          <ChangeOrderStatus order={order as IOrder} id={id as string} />
         </>
       )}
     </section>

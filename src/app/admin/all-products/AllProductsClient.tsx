@@ -55,7 +55,7 @@ const AllProductsClient = () => {
     dispatch(FILTER_BY_SEARCH({ products, search }));
   }, [dispatch, products, search]);
 
-  const confirmDelete = (id, imageURL) => {
+  const confirmDelete = (id: string, imageURL: string) => {
     Notiflix.Confirm.show(
       "상품 삭제하기",
       "해당 상품을 삭제합니다.",
@@ -77,7 +77,7 @@ const AllProductsClient = () => {
     );
   };
 
-  const deleteProduct = async (id, imageURL) => {
+  const deleteProduct = async (id: string, imageURL: string) => {
     try {
       await deleteDoc(doc(db, "products", id));
 

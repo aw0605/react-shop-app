@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import {
@@ -22,7 +22,7 @@ import styles from "../../add-product/AddProduct.module.scss";
 
 const EditProductClient = () => {
   const { id } = useParams();
-  const { document } = useFetchDocument("products", id);
+  const { document } = useFetchDocument("products", id as string);
 
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,12 +34,14 @@ const EditProductClient = () => {
     setProduct(document);
   }, [document]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
@@ -66,7 +68,7 @@ const EditProductClient = () => {
     );
   };
 
-  const editProduct = (e) => {
+  const editProduct = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -78,7 +80,7 @@ const EditProductClient = () => {
     }
 
     try {
-      setDoc(doc(db, "products", id), {
+      setDoc(doc(db, "products", id as string), {
         name: product.name,
         imageURL: product.imageURL,
         price: Number(product.price),

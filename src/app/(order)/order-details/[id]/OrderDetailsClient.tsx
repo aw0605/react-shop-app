@@ -9,14 +9,15 @@ import Loader from "@/components/loader/Loader";
 import Button from "@/components/button/Button";
 
 import styles from "./OrderDetails.module.scss";
+import { ICartItem } from "@/types";
 
 const OrderDetailsClient = () => {
   const { id } = useParams();
-  const { document: order } = useFetchDocument("orders", id);
+  const { document: order } = useFetchDocument("orders", id as string);
 
   const router = useRouter();
 
-  const handleClick = (id) => {
+  const handleClick = (id: string) => {
     router.push(`/review-product/${id}`);
   };
 
@@ -49,7 +50,7 @@ const OrderDetailsClient = () => {
                 </tr>
               </thead>
               <tbody>
-                {order.cartItems.map((cartItem, index) => {
+                {order.cartItems.map((cartItem: ICartItem, index: number) => {
                   const { id, name, price, imageURL, cartQuantity } = cartItem;
                   return (
                     <tr key={id}>

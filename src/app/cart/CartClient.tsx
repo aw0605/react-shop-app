@@ -18,10 +18,11 @@ import {
   selectCartTotalAmount,
 } from "@/redux/slice/cartSlice";
 import { selectIsLoggedIn } from "@/redux/slice/authSlice";
+import { FaTrashAlt } from "react-icons/fa";
+import { ICartItem } from "@/types";
 import priceFormat from "@/utils/priceFormat";
 import Heading from "@/components/heading/Heading";
 import Button from "@/components/button/Button";
-import { FaTrashAlt } from "react-icons/fa";
 
 import styles from "./Cart.module.scss";
 
@@ -37,15 +38,15 @@ const CartClient = () => {
 
   const router = useRouter();
 
-  const increaseCart = (item) => {
+  const increaseCart = (item: ICartItem) => {
     dispatch(ADD_TO_CART(item));
   };
 
-  const decreaseCart = (item) => {
+  const decreaseCart = (item: ICartItem) => {
     dispatch(DECREASE_CART(item));
   };
 
-  const removeFromCart = (item) => {
+  const removeFromCart = (item: ICartItem) => {
     dispatch(REMOVE_FROM_CART(item));
   };
 

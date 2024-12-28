@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { db, storage } from "@/firebase/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 import Loader from "@/components/loader/Loader";
 import Heading from "@/components/heading/Heading";
 import Button from "@/components/button/Button";
@@ -43,13 +44,15 @@ const AddProductClient = () => {
 
   const router = useRouter();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
     console.log(product);
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
 
@@ -75,7 +78,7 @@ const AddProductClient = () => {
     );
   };
 
-  const addProduct = (e) => {
+  const addProduct = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -96,9 +99,9 @@ const AddProductClient = () => {
 
       toast.success("상품을 성공적으로 등록했습니다.");
       router.push("/admin/all-products");
-    } catch (e) {
+    } catch (error) {
       setIsLoading(false);
-      toast.error(e.message);
+      toast.error(getErrorMessage(error));
     }
   };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
@@ -30,11 +31,11 @@ const CheckoutClient = () => {
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const tossPayment = await loadTossPayments(
-      process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY
+      process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!
     );
 
     tossPayment

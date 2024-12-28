@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { Rating } from "react-simple-star-rating";
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { selectUserID, selectUserName } from "@/redux/slice/authSlice";
 import useFetchDocument from "@/hooks/useFetchDocument";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 import Heading from "@/components/heading/Heading";
 import Loader from "@/components/loader/Loader";
 import Button from "@/components/button/Button";
@@ -27,9 +28,9 @@ const ReviewProductClient = () => {
 
   const { id } = useParams();
 
-  const { document: product } = useFetchDocument("products", id);
+  const { document: product } = useFetchDocument("products", id as string);
 
-  const submitReview = (e) => {
+  const submitReview = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const date = new Date().toDateString();
@@ -50,8 +51,8 @@ const ReviewProductClient = () => {
       toast.success("상품평이 등록되었습니다.");
 
       router.push(`/product-details/${id}`);
-    } catch (e) {
-      toast.error(e.message);
+    } catch (error) {
+      toast.error(getErrorMessage(error));
     }
   };
   return (
